@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import noteService from './services/persons'
+import contactService from './services/persons'
 import Notification from './Notification'
 
 
@@ -14,48 +14,65 @@ const App = () => {
 
   useEffect(() => {
     console.log('effect')
-    noteService
+    contactService
       .getAll()
       .then(response => {
         console.log('promise fulfilled')
         setPersons(response.data)
+      })
+      .catch(error => {
+        console.log(error.response.data)
       })
   }, [])
 
   const addName = (event) => {
     event.preventDefault()
 
+    // Jos nimi alle 3 merkkiä
+    if (newName.length < 3) {
+      setNotification({ message: 'Person validation failed: name: ' + newName + ' is shorter than the minimum allowed length (3).', type: 'error' })
+      setTimeout(() => setNotification(null), 5000)
+      return
+    }
+
     const nimiObject = {
       name: newName,
       number: newNumber,
     }
 
+    // Jos nimi jo olemassa
     const nameExists = persons.some(person => person.name === newName)
     if (nameExists) {
       alert(`${newName} is already added to phonebook`)
       return
     }
 
-    noteService
+    contactService
       .create(nimiObject)
       .then(response => {
         setPersons(persons.concat(response.data))
         setNewName('')
         setNewNumber('')
 
-        setNotification(`Added ${response.data.name}`)
+        setNotification({ message: `Added ${response.data.name}`, type: 'success' })
         setTimeout(() => {
           setNotification(null)
         }, 5000)
+      })
+      .catch(error => {
+        console.log(error.response.data)
       })
   }
 
   const deletePerson = (id) => {
     if (window.confirm('Delete this person?')) {
-      noteService
+      contactService
         .exterminate(id)
         .then(() => {
           setPersons(persons.filter(p => p.id !== id))
+        })
+        .catch(error => {
+          console.log(error.response.data)
         })
     }
   }

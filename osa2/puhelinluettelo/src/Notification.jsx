@@ -1,11 +1,15 @@
 const Notification = ({ message }) => {
-    if (message === null) {
+
+    if (!message) {
         return null
     }
 
+
+    const className = message.type === 'error' ? 'notif error' : 'notif success'
+
     return (
-        <div className="notif">
-            {message}
+        <div className={className}>
+            {message.message}
         </div>
     )
 }
