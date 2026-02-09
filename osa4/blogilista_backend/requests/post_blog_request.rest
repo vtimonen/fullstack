@@ -1,0 +1,10 @@
+POST http://localhost:3003/api/blogs
+Content-Type: application/json
+
+{
+  "title": "Toinen Skeematesti",
+  "author": "Koodari",
+  "url": "http://react.dev",
+  "likes": 500,
+  "userId": "6985d1acd0a5c9672413cf0e"
+}

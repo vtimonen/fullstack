@@ -1,0 +1,11 @@
+POST http://localhost:3003/api/blogs
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlRlaHTDpHbDpCIsImlkIjoiNjk4OTk1Mzc3NzA4MTQwMzM2OTdlNTU5IiwiaWF0IjoxNzcwNjI1NDkzfQ.pneEKQ9OypeONqFkeOSvTc37_N9-6lwn1PmfLOJaV5g
+
+{
+  "title": "Tehtävä",
+  "author": "4.19",
+  "url": "http://localhost:3003/api/blogs",
+  "likes": 500,
+  "userId": "69899537770814033697e559"
+}
